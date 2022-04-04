@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const user = require('../models/user_model');
+const user = require('../models/card_model');
 
 router.get('/:id?',
  function(request, response) {
   if (request.params.id) {
     console.log('Käyttäjä antoi'+request)
-    user.getById(request.params.id, function(err, dbResult) {
+    card.getById(request.params.id, function(err, dbResult) {
       if (err) {
         response.json(err);
       } else {
@@ -14,7 +14,7 @@ router.get('/:id?',
       }
     });
   } else {
-    user.get(function(err, dbResult) {
+    card.get(function(err, dbResult) {
       if (err) {
         response.json(err);
       } else {
@@ -25,7 +25,7 @@ router.get('/:id?',
 });
 router.post('/', 
 function(request, response) {
-  user.add(request.body, function(err, count) {
+  card.add(request.body, function(err, count) {
     if (err) {
       response.json(err);
     } else {
@@ -36,7 +36,7 @@ function(request, response) {
 
 router.delete('/:id', 
 function(request, response) {
-  user.delete(request.params.id, function(err, count) {
+  card.delete(request.params.id, function(err, count) {
     if (err) {
       response.json(err);
     } else {
@@ -48,7 +48,7 @@ function(request, response) {
 
 router.put('/:id', 
 function(request, response) {
-  user.update(request.params.id, request.body, function(err, dbResult) {
+  card.update(request.params.id, request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {

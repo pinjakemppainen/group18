@@ -1,0 +1,10 @@
+const db = require("../config/db");
+//const db = require('../database');
+
+const login={
+  checkPassword: function(username, callback) {
+      return db.query('SELECT password FROM users WHERE username = ?',[username], callback); 
+    }
+};
+          
+module.exports = login;
