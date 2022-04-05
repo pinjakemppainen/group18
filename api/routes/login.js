@@ -5,22 +5,22 @@ const login = require('../models/login_model');
 
 router.post('/', 
   function(request, response) {
-    if(request.body.username && request.body.password){
-      const username = request.body.username;
-      const password = request.body.password;
-        login.checkPassword(username, function(dbError, dbResult) {
+    if(request.body.customerID && request.body.card_PIN){
+      const customerID = request.body.customerID;
+      const card_PIN = request.body.card_PIN;
+        login.checkcard_PIN(customerID, function(dbError, dbResult) {
           if(dbError){
             response.json(dbError);
           }
           else{
             if (dbResult.length > 0) {
-              bcrypt.compare(password,dbResult[0].password, function(err,compareResult) {
+              bcrypt.compare(card_PIN,dbResult[0].card_PIN, function(err,compareResult) {
                 if(compareResult) {
                   console.log("success");
                   response.send(true);
                 }
                 else {
-                    console.log("wrong password");
+                    console.log("wrong card_PIN");
                     response.send(false);
                 }			
               }
@@ -35,7 +35,7 @@ router.post('/',
         );
       }
     else{
-      console.log("username or password missing");
+      console.log("customerID or card_PIN missing");
       response.send(false);
     }
   }

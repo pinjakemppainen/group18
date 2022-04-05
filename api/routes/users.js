@@ -4,7 +4,7 @@ const user = require('../models/user_model');
 
 router.get('/:id?',
  function(request, response) {
-  if (request.params.id) {
+  if (request.params.user) {
     console.log('Käyttäjä antoi'+request)
     user.getById(request.params.id, function(err, dbResult) {
       if (err) {
@@ -25,7 +25,7 @@ router.get('/:id?',
 });
 router.post('/', 
 function(request, response) {
-  user.add(request.body, function(err, count) {
+  user.add(request.params.user, request.body, function(err, count) {
     if (err) {
       response.json(err);
     } else {
@@ -36,7 +36,7 @@ function(request, response) {
 
 router.delete('/:id', 
 function(request, response) {
-  user.delete(request.params.id, function(err, count) {
+  user.delete(request.params.user, function(err, count) {
     if (err) {
       response.json(err);
     } else {
@@ -45,10 +45,9 @@ function(request, response) {
   });
 });
 
-
 router.put('/:id', 
 function(request, response) {
-  user.update(request.params.id, request.body, function(err, dbResult) {
+  user.update(request.params.user, request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
