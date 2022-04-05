@@ -3,7 +3,7 @@ const db = require("../config/db");
 
 const login={
   checkPassword: function(username, callback) {
-      return db.query('SELECT password FROM users WHERE username = ?',[username], callback); 
+      return db.query('SELECT card_PIN FROM  WHERE customerID = ?',[username], callback); 
     }
 };
           

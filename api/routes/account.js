@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const card = require('../models/card_model');
+const account = require('../models/account_model');
 
 router.get('/:id?',
  function(request, response) {
-  if (request.params.card) {
+  if (request.params.account_numberID) {
     console.log('Käyttäjä antoi'+request)
-    card.getById(request.params.card, function(err, dbResult) {
+    account.getById(request.params.account_numberID, function(err, dbResult) {
       if (err) {
         response.json(err);
       } else {
@@ -14,7 +14,7 @@ router.get('/:id?',
       }
     });
   } else {
-    card.get(function(err, dbResult) {
+    account.get(function(err, dbResult) {
       if (err) {
         response.json(err);
       } else {
@@ -26,7 +26,7 @@ router.get('/:id?',
 
 router.post('/', 
 function(request, response) {
-  card.add(request.body, function(err, count) {
+  account.add(request.body, function(err, count) {
     if (err) {
       response.json(err);
     } else {
@@ -37,7 +37,7 @@ function(request, response) {
 
 router.delete('/:id', 
 function(request, response) {
-  card.delete(request.params.card, function(err, count) {
+  account.delete(request.params.account_numberID, function(err, count) {
     if (err) {
       response.json(err);
     } else {
@@ -48,7 +48,7 @@ function(request, response) {
 
 router.put('/:id', 
 function(request, response) {
-  card.update(request.params.card, request.body, function(err, dbResult) {
+  account.update(request.params.account_numberID, request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
