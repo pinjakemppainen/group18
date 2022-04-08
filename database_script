@@ -1,29 +1,38 @@
-create database banksimuldb;
-use banksimuldb;
+CREATE database banksimuldb;
+USE banksimuldb;
 
-create table account(
-account_numberID int,
-account_balance varchar(255),
-primary key(account_numberID));
+CREATE TABLE account(
+account_numberID INT NOT NULL AUTO_INCREMENT,
+account_balance VARCHAR(255),
+PRIMARY KEY(account_numberID));
 
-create table customer(
-customerID int,
-customer_name varchar(255),
-customer_address varchar(255),
-customer_phoneNum varchar(255),
-primary key(customerID));
+CREATE TABLE customer(
+customerID INT NOT NULL AUTO_INCREMENT,
+customer_name VARCHAR(255),
+customer_address VARCHAR(255),
+customer_phoneNum VARCHAR(255),
+PRIMARY KEY(customerID));
 
-create table cardNumber(
-card_numberID int,
-card_PIN varchar(255),
-customerID int,
-account_numberID int,
-foreign key(customerID) references customer(customerID),
-foreign key(account_numberID) references account(account_numberID),
-primary key(card_numberID));
+CREATE TABLE cardNumber(
+card_numberID INT NOT NULL AUTO_INCREMENT,
+card_PIN VARCHAR(255),
+customerID INT,
+account_numberID INT,
+FOREIGN KEY(customerID) REFERENCES customer(customerID),
+FOREIGN KEY(account_numberID) REFERENCES account(account_numberID),
+PRIMARY KEY(card_numberID));
 
-create table customer_account(
-account_numberID int,
-customerID int,
-foreign key(account_numberID) references account(account_numberID),
-foreign key(customerID) references customer(customerID));
+CREATE TABLE customer_account(
+account_numberID INT,
+customerID INT,
+FOREIGN KEY(account_numberID) REFERENCES account(account_numberID),
+FOREIGN KEY(customerID) REFERENCES customer(customerID));
+
+CREATE TABLE transactions(
+account_numberID INT,
+card_numberID INT,
+transactions_datetime DATETIME,
+event VARCHAR(255),
+amount INT,
+FOREIGN KEY(account_numberID) REFERENCES account(account_numberID);
+FOREIGN KEY(card_numberID) REFERENCES card(card_numberID));
