@@ -34,5 +34,5 @@ card_numberID INT,
 transactions_datetime DATETIME,
 event VARCHAR(255),
 amount INT,
-FOREIGN KEY(account_numberID) REFERENCES account(account_numberID);
-FOREIGN KEY(card_numberID) REFERENCES card(card_numberID));
+FOREIGN KEY(account_numberID) REFERENCES account(account_numberID),
+FOREIGN KEY(card_numberID) REFERENCES cardNumber(card_numberID));
