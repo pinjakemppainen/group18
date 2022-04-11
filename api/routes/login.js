@@ -8,7 +8,7 @@ router.post('/',
     if(request.body.customerID && request.body.card_PIN){
       const customerID = request.body.customerID;
       const card_PIN = request.body.card_PIN;
-        login.checkcard_PIN(customerID, function(dbError, dbResult) {
+        login.checkPassword(customerID, function(dbError, dbResult) {
           if(dbError){
             response.json(dbError);
           }

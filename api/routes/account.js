@@ -35,9 +35,9 @@ function(request, response) {
   });
 });
 
-router.delete('/:id', 
+router.delete('/', 
 function(request, response) {
-  account.delete(request.params.account_numberID, function(err, count) {
+  account.delete(request.body, function(err, count) {
     if (err) {
       response.json(err);
     } else {
@@ -46,13 +46,13 @@ function(request, response) {
   });
 });
 
-router.put('/:id', 
+router.put('/', 
 function(request, response) {
-  account.update(request.params.account_numberID, request.body, function(err, dbResult) {
+  account.update(request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
-      response.json(dbResult);
+      response.json(request.body);
     }
   });
 });

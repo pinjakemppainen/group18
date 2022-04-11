@@ -35,9 +35,9 @@ function(request, response) {
   });
 });
 
-router.delete('/:id', 
+router.delete('/', 
 function(request, response) {
-  cusAcc.delete(request.params.cusAcc, function(err, count) {
+  cusAcc.delete(request.body, function(err, count) {
     if (err) {
       response.json(err);
     } else {
@@ -46,13 +46,13 @@ function(request, response) {
   });
 });
 
-router.put('/:id', 
+router.put('/', 
 function(request, response) {
-  cusAcc.update(request.params.cusAcc, request.body, function(err, dbResult) {
+  cusAcc.update(request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
-      response.json(dbResult);
+      response.json(request.body);
     }
   });
 });

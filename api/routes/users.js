@@ -25,7 +25,7 @@ router.get('/:id?',
 });
 router.post('/', 
 function(request, response) {
-  user.add(request.params.user, request.body, function(err, count) {
+  user.add(request.body, function(err, count) {
     if (err) {
       response.json(err);
     } else {
@@ -34,9 +34,9 @@ function(request, response) {
   });
 });
 
-router.delete('/:id', 
+router.delete('/', 
 function(request, response) {
-  user.delete(request.params.user, function(err, count) {
+  user.delete(request.body, function(err, count) {
     if (err) {
       response.json(err);
     } else {
@@ -45,9 +45,9 @@ function(request, response) {
   });
 });
 
-router.put('/:id', 
+router.put('/', 
 function(request, response) {
-  user.update(request.params.user, request.body, function(err, dbResult) {
+  user.update(request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
