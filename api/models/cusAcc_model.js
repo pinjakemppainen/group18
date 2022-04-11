@@ -1,9 +1,9 @@
 const db = require("../config/db");
 //const db = require('../database');
-const bcrypt = require('bcryptjs');
+//const bcrypt = require('bcryptjs');
+//const saltRounds=10;
 
-const saltRounds=10;
-const card={
+const cusAcc={
   get: function(callback) {
     return db.query('select * from customer_account', callback);
   },
@@ -11,21 +11,14 @@ const card={
     return db.query('select * from customer_account where account_numberID=?', [cusAcc.account_numberID], callback);
   },
   add: function(cusAcc, callback) {
-    bcrypt.hash(saltRounds, cusAcc.customerID, function(err, hash) {
-      return db.query('insert into customer_account (account_numberID, customerID) values(?,?)',
-      [hash, cusAcc.customerID], callback);
-    });
+      return db.query('insert into customer_account (account_numberID, customerID) values(?,?)', [cusAcc.account_numberID, cusAcc.customerID], callback);
   },
   delete: function(cusAcc, callback) {
-    return db.query('delete from customer_account where card_numberID=?', [cusAcc], callback);
+    return db.query('delete from customer_account where customerID=?', [cusAcc.customerID], callback);
   },
   update: function(cusAcc, callback) {
-    bcrypt.hash(saltRounds, cusAcc.customerID, function(err, hash) {
-      return db.query('update customer_account set account_numberID=?, customerID=? where account_numberID=?',
-      [hash, cusAcc.customerID], callback);
-    });
-  }
-
-}
+      return db.query('update customer_account set account_numberID=?, customerID=? where customerID=?', [cusAcc.account_numberID, cusAcc.customerID, cusAcc.customerID2], callback);
+    }
+  };
           
-module.exports = card;
+module.exports = cusAcc;

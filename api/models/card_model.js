@@ -1,6 +1,7 @@
 const db = require("../config/db");
 //const db = require('../database');
 const bcrypt = require('bcryptjs');
+//const { hash } = require("bcrypt");
 
 const saltRounds=10;
 const card={
@@ -11,18 +12,18 @@ const card={
     return db.query('select * from cardnumber where card_numberID=?', [card.card_numberID], callback);
   },
   add: function(card, callback) {
-    bcrypt.hash(saltRounds, saltRounds, card.customerID, saltRounds, function(err, hash) {
-      return db.query('insert into cardnumber (card_numberID, card_PIN, customerID, account_numberID) values(?,?,?,?)',
-      [hash, hash, card.customerID, hash], callback);
+    bcrypt.hash(card.card_PIN, saltRounds, function(err, hash) {
+      return db.query('insert into cardnumber (card_PIN, account_numberID, customerID) values(?,?,?)',
+      [hash, card.account_numberID ,card.customerID], callback);
     });
   },
   delete: function(card, callback) {
-    return db.query('delete from cardnumber where card_numberID=?', [card], callback);
+    return db.query('delete from cardnumber where card_numberID=? and customerID=?', [card.card_numberID, card.customerID], callback);
   },
   update: function(card, callback) {
-    bcrypt.hash(saltRounds, saltRounds, card.customerID, saltRounds, saltRounds, function(err, hash) {
-      return db.query('update cardnumber set card_numberID=?, card_PIN=?, customerID=?, account_numberID=? where card_numberID=?',
-      [hash, hash, card.customerID, hash, hash], callback);
+    bcrypt.hash(card.card_PIN, saltRounds, function(err, hash) {
+      return db.query('update cardnumber set card_PIN=?, customerID=?, account_numberID=? where card_numberID=?',
+      [hash, card.customerID, card.account_numberID, card.card_numberID], callback);
     });
   }
 
